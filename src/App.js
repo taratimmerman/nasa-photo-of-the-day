@@ -24,16 +24,23 @@ function App() {
   }, []);
 
   const Content = (props) => (
-        <div>
-            <h1>{props.title}</h1>
-            <img src={props.url} alt={props.title}/>
-        </div>
-
+    <div>
+    <h1>{props.title}</h1>
+    {props.mediaType === "video" ? <Video src={props.url} alt={props.title} /> : <Image src={props.url} alt={props.title}/>}
+  </div>
   );
 
+  const Video = (props) => (
+    <video controls="controls" src={props.url} ></video>
+);
+
+  const Image = (props) => (
+    <img src={props.url} alt={props.title}/>
+);
+  
   return (
     <div className="App">
-      <Content url={apodData.url} title={apodData.title} />
+      <Content mediaType={apodData.media_type} url={apodData.url} title={apodData.title} />
       <p>
         {apodData.explanation}
       </p>
@@ -42,3 +49,4 @@ function App() {
 }
 
 export default App;
+
