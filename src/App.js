@@ -1,9 +1,20 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import axios from 'axios';
+import styled from "styled-components";
 
 const BASE_URL = 'https://api.nasa.gov';
 const API_KEY = 't1miILVoljZ4KJES25OPAA3ZJCYyCSeLrBEcZuTo';
+
+const Wrapper = styled.div`
+  width: 80%;
+  margin: auto;
+`;
+
+const Image = styled.img`
+  width: 60%;
+  border-radius: 10px;
+`;
 
 function App() {
 
@@ -24,12 +35,12 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
+    <Wrapper className="App">
       <h1>Astrology Photo of the Day</h1>
       <h2>{apodData.title}</h2>
       <p>{apodData.date}</p>
       {apodData.media_type === "image" ? 
-      (<img src={apodData.url} alt={apodData.title} />) : 
+      (<Image src={apodData.url} alt={apodData.title} />) : 
       (<iframe
       title="space-video"
       src={apodData.url}
@@ -39,9 +50,11 @@ function App() {
       allowFullScreen
       className="photo"
       />)}
-      <p>{apodData.explanation}</p> 
-    </div>
+      <p>{apodData.explanation}</p>
+      <p>Copyright {apodData.copyright}</p>
+    </Wrapper>
   );
+
 }
 
 export default App;
